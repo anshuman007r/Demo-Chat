@@ -7,6 +7,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^10.8.0",
+    "@react-native-firebase/auth": "^10.8.0",
     "native-base": "^2.15.2",
     "react": "16.8.3",
     "react-native": "0.59.10",

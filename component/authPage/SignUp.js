@@ -4,6 +4,7 @@ import { View, Text, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, 
 import Logo from '../../assets/images/Image/PNG/demo.png'
 import { RegEx } from '../../config/AppConfig';
 import styles from '../../style';
+import auth from '@react-native-firebase/auth'
 
 class SignUp extends Component {
     constructor(props) {
@@ -120,32 +121,16 @@ class SignUp extends Component {
         }
     }
 
-    callLoginApi = () => {
-        // if (!this.state.disableCTA) {
-        //     wrapperAPI("login", {
-        //         "username": this.state.mobileoremail,
-        //         "password": this.state.password,
-        //         "deviceId": DeviceInfo.getUniqueId(),
-        //         "fcmToken": this.state.fcmToken,
-        //         "platform": Platform.OS              
-        //     })
-        //         .then(res => {
-        //             if (res.data.data) {
-        //                 if (res.data.data.role === "Admin") {
-        //                     this.notifyMessage("Invalid username or password");
-        //                 } else {
-        //                     this.props.saveProfile(res.data.data);
-        //                     this.loginModalVisiblity();
-        //                 }
-        //             } else {
-        //                 this.notifyMessage(res.data.errorResponse.errorMessage);
-        //             }
-        //             console.log("LoggedIn_Res--::", res);
-        //         })
-        //         .catch(err => {
-        //             console.log("error", err)
-        //         })
-        // }
+    callLoginApi = async () => {
+        let {mobileoremail, password} = this.state
+        try {
+            let response = await auth().createUserWithEmailAndPassword(mobileoremail, password)
+            if (response) {
+              console.log("response", response)
+            }
+          } catch (e) {
+            console.error(e.message)
+          }
     }
 
     onFocusPass = () => {

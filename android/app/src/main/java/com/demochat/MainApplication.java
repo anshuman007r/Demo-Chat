@@ -3,6 +3,8 @@ package com.demochat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import org.linusu.RNGetRandomValuesPackage;
@@ -26,6 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeFirebaseAuthPackage(),
+            new ReactNativeFirebaseAppPackage(),
             new RNGestureHandlerPackage(),
             new RNScreensPackage(),
             new RNGetRandomValuesPackage()
