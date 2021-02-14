@@ -201,7 +201,7 @@ class SignUp extends Component {
                         <Text style={{left :15, fontSize :28,flex:1}} onPress={()=>this.props.navigation.goBack()}>X</Text>
                         <Text style={styles.signup_header}>Register page</Text>
                     </View>
-                    <Content ref={c => this._content = c}>
+                    <Content ref={c => this._content = c} scrollEnabled={false}>
                         <View style={styles.signup_wrapper}>
                         <   View style={styles.signup_imageView}>
                                 <Image source={Logo} style={styles.signup_image_path} />
