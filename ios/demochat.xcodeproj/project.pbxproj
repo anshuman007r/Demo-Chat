@@ -45,6 +45,9 @@
 		3874DD5BE79645BF85FF0A87 /* libRNScreens-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CB20A5991E5441A9DE4195B /* libRNScreens-tvOS.a */; };
 		885AA9E0ED954EE1AFBD8871 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0593483A703944D1A20C85AE /* libRNGestureHandler.a */; };
 		A63B69D53B6841AE9D5878C0 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E08661B76143EC8E702644 /* libRNGestureHandler-tvOS.a */; };
+		3E836F1C093F4DC1A1125F8A /* libRNFBApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797F04B98A8C41639DE0B392 /* libRNFBApp.a */; };
+		9808C3D9060448DCBCDC095F /* libRNFBAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4476CDD03134A0D8E874617 /* libRNFBAuth.a */; };
+		622FDE58D80348FCA20D7AD7 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AED2473B4434BE891F5B326 /* libRNCAsyncStorage.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -360,6 +363,12 @@
 		7F4FDC19AD3C4B9EB5E84BD3 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; name = "RNGestureHandler.xcodeproj"; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		0593483A703944D1A20C85AE /* libRNGestureHandler.a */ = {isa = PBXFileReference; name = "libRNGestureHandler.a"; path = "libRNGestureHandler.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		25E08661B76143EC8E702644 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; name = "libRNGestureHandler-tvOS.a"; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		954184E1C2F84EF595E5C4AD /* RNFBApp.xcodeproj */ = {isa = PBXFileReference; name = "RNFBApp.xcodeproj"; path = "../node_modules/@react-native-firebase/app/ios/RNFBApp.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		797F04B98A8C41639DE0B392 /* libRNFBApp.a */ = {isa = PBXFileReference; name = "libRNFBApp.a"; path = "libRNFBApp.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		E7DE1476CA5040E181BD30E2 /* RNFBAuth.xcodeproj */ = {isa = PBXFileReference; name = "RNFBAuth.xcodeproj"; path = "../node_modules/@react-native-firebase/auth/ios/RNFBAuth.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		C4476CDD03134A0D8E874617 /* libRNFBAuth.a */ = {isa = PBXFileReference; name = "libRNFBAuth.a"; path = "libRNFBAuth.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7C4A2616CA1F4EE6B2FDDB98 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; name = "RNCAsyncStorage.xcodeproj"; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		4AED2473B4434BE891F5B326 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; name = "libRNCAsyncStorage.a"; path = "libRNCAsyncStorage.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +400,9 @@
 				4A1D49E3EB464E8F9C72568B /* libRNGetRandomValues.a in Frameworks */,
 				7EE2E57B50D54EA08FEFA286 /* libRNScreens.a in Frameworks */,
 				885AA9E0ED954EE1AFBD8871 /* libRNGestureHandler.a in Frameworks */,
+				3E836F1C093F4DC1A1125F8A /* libRNFBApp.a in Frameworks */,
+				9808C3D9060448DCBCDC095F /* libRNFBAuth.a in Frameworks */,
+				622FDE58D80348FCA20D7AD7 /* libRNCAsyncStorage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +597,9 @@
 				CF1B2ED1FCF041F7B4ECC5BE /* RNGetRandomValues.xcodeproj */,
 				0CAF7236EC4341D38A94D5A2 /* RNScreens.xcodeproj */,
 				7F4FDC19AD3C4B9EB5E84BD3 /* RNGestureHandler.xcodeproj */,
+				954184E1C2F84EF595E5C4AD /* RNFBApp.xcodeproj */,
+				E7DE1476CA5040E181BD30E2 /* RNFBAuth.xcodeproj */,
+				7C4A2616CA1F4EE6B2FDDB98 /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1217,12 +1232,18 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Debug;
@@ -1249,12 +1270,18 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Release;
@@ -1280,6 +1307,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Debug;
@@ -1304,6 +1334,9 @@
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Release;
@@ -1338,12 +1371,18 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Debug;
@@ -1378,12 +1417,18 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Release;
@@ -1417,12 +1462,18 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Debug;
@@ -1456,12 +1507,18 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-get-random-values\ios",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-gesture-handler\ios/**",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\app\ios\RNFBApp",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\auth\ios\RNFBAuth",
+					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 				);
 			};
 			name = Release;

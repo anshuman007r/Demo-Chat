@@ -5,6 +5,8 @@ import Logo from '../../assets/images/Image/PNG/demo.png'
 import { RegEx } from '../../config/AppConfig';
 import styles from '../../style';
 import auth from '@react-native-firebase/auth'
+import { connect } from 'react-redux'
+import { logged } from '../../storage/action'
 
 class SignUp extends Component {
     constructor(props) {
@@ -127,6 +129,7 @@ class SignUp extends Component {
             let response = await auth().createUserWithEmailAndPassword(mobileoremail, password)
             if (response) {
               console.log("response", response)
+              this.props.logged(response.user._user)
             }
           } catch (e) {
             console.error(e.message)
@@ -201,7 +204,7 @@ class SignUp extends Component {
                         <Text style={{left :15, fontSize :28,flex:1}} onPress={()=>this.props.navigation.goBack()}>X</Text>
                         <Text style={styles.signup_header}>Register page</Text>
                     </View>
-                    <Content ref={c => this._content = c} scrollEnabled={false}>
+                    <Content ref={c => this._content = c}>
                         <View style={styles.signup_wrapper}>
                         <   View style={styles.signup_imageView}>
                                 <Image source={Logo} style={styles.signup_image_path} />
@@ -354,4 +357,11 @@ class SignUp extends Component {
         )
     }
 }
-export default SignUp
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logged: profile => dispatch(logged(profile)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(SignUp)

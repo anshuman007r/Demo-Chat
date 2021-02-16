@@ -10,6 +10,9 @@ export default StyleSheet.create({
     signup_wrapper: {
         height:deviceHeight, justifyContent :'center'
     },
+    homepage_wrapper :{
+        flex :1, justifyContent:'center',alignItems:'center'
+    },
     login_imageView: {
         alignItems: 'center', flex: 2, justifyContent: 'center', marginVertical : 50
     },
@@ -24,6 +27,9 @@ export default StyleSheet.create({
     },
     signup_header:{
         fontSize :22,fontFamily: 'WorkSans-Regular',flex:2
+    },
+    homepage_header:{
+        fontSize :22,fontFamily: 'WorkSans-Regular'
     },
     login_userNameDiv: {
         elevation: 10, flex: 1, borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: 'space-between', flexDirection: 'column'

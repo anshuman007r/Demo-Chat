@@ -6,6 +6,14 @@ import { RegEx } from '../../config/AppConfig';
 import styles from '../../style';
 import EyeIcon from '../../assets/Icon/Eye.svg'
 import auth from '@react-native-firebase/auth'
+import { connect } from 'react-redux'
+import { logged } from '../../storage/action'
+import { StackActions, NavigationActions } from 'react-navigation';
+
+const onlogOn = StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'HomePage' })],
+})
 
 class LoginPage extends Component {
     constructor(props) {
@@ -34,7 +42,19 @@ class LoginPage extends Component {
     }
 
     componentDidMount() {
-        this.checkLogin();
+        if(!this.state.loggedIn){
+            this.checkLogin();
+        }else{
+            this.props.navigation.dispatch(onlogOn)
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(!nextProps.loggedIn){
+            this.checkLogin()
+        }else{
+            this.props.navigation.dispatch(onlogOn)
+        }
     }
 
     checkLogin = () => {
@@ -125,6 +145,8 @@ class LoginPage extends Component {
             if (response && response.user) {
               Alert.alert("Success ✅", "Authenticated successfully")
               console.log(response)
+              this.props.logged(response.user._user)
+              this.props.navigation.dispatch(onlogOn)
             }
           } catch (e) {
             console.log(e.message)
@@ -273,4 +295,18 @@ class LoginPage extends Component {
         )
     }
 }
-export default LoginPage
+
+const mapStateToProps = (state) => {
+    return {
+        profile: state.authReducer.profile,
+        loggedIn: state.authReducer.loggedIn,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logged: profile => dispatch(logged(profile)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
