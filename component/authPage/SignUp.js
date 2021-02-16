@@ -301,7 +301,7 @@ class SignUp extends Component {
                                                 <Text style={styles.password_text}>Confirm password</Text>
                                                 <View style={styles.password_input}>
                                                     <TextInput maxLength={20}
-                                                        style={[styles.password_inText, { borderColor: this.state.isFocusOnPass ? '#800000' : '#4d5054' }]}
+                                                        style={[styles.password_inText, { borderColor: this.state.isFocusOnConfirmPass ? '#800000' : '#4d5054' }]}
                                                         secureTextEntry={this.state.toggleShowConfirmPass} placeholder="Password"
                                                         placeholderTextColor="grey"
                                                         autoCapitalize="none"
