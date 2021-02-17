@@ -12,6 +12,7 @@
     "@react-native-firebase/auth": "^10.8.0",
     "@react-native-firebase/firestore": "^10.8.0",
     "jetify": "^1.0.2",
+    "moment": "^2.29.1",
     "native-base": "^2.15.2",
     "react": "16.8.3",
     "react-native": "0.59.10",

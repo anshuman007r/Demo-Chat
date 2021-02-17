@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Content, Icon } from 'native-base';
-import { View, Text, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, TextInput, Alert, Platform, Linking } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, TextInput, Alert, Platform, Linking, FlatList } from 'react-native';
 import Logo from '../../assets/images/Image/PNG/demo.png'
 import styles from '../../style';
 import { connect } from 'react-redux'
@@ -8,13 +8,16 @@ import { loggedOut } from '../../storage/action'
 import firestore from '@react-native-firebase/firestore'
 import logout from '../../assets/Icon/Logout.png'
 import  RBSheet from 'react-native-raw-bottom-sheet'
+import moment from 'moment'
+
 
 class HomePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             roomName :'',
-            disableCTA :true
+            disableCTA :true,
+            threads:[]
         }
     }
 
@@ -38,7 +41,7 @@ class HomePage extends Component {
             }
           })
           .then((res) => {
-              Alert.alert(res,'New Room is created')
+            //   Alert.alert(res,'New Room is created')
           })
     }
 
@@ -84,9 +87,28 @@ class HomePage extends Component {
               ...documentSnapshot.data()
             }
           })
-          console.log('Thread',threads)
+          this.setState({
+              threads
+          })
         })
         console.log('room',getRooms)
+    }
+
+    _renderChatRoom = (rowItem) => {
+        const {item, index}  = rowItem;
+        let date = moment(item.latestMessage.createdAt).format('YYYY-MM-DD')
+        let time = moment(item.latestMessage.createdAt).format('hh:mm:ss')
+        console.log(item)
+        return (
+            <TouchableOpacity style={{backgroundColor:'#d4d4d4', height :100, width :'90%', alignSelf:'center',borderColor:'grey',borderWidth:1,borderRadius:10,paddingHorizontal :20, marginTop:10}} >
+                <Text style={{ color: '#000', fontFamily: 'WorkSans-SemiBold',fontSize: 22, alignSelf: 'flex-start', marginTop: 10 }} numberOfLines ={1} ellipsizeMode={'tail'}>{item.name}</Text>
+                <View style={{flexDirection:'row',marginTop:3}}>
+                    <Text style={{ alignSelf:'flex-start', color:'grey', fontSize:14,flex :1.2}} numberOfLines={2}>{item.latestMessage.text}</Text>
+                </View>
+                <Text style={{ alignSelf:'flex-end', color:'grey', fontSize:12,marginTop:10}}>{date}<Text> {time}</Text></Text>
+
+            </TouchableOpacity>
+        )
     }
 
 
@@ -108,12 +130,20 @@ class HomePage extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <Content ref={c => this._content = c} scrollEnabled={false}>
+                    <Content ref={c => this._content = c}>
                         <View style={styles.homepage_wrapper}>
                         <   View style={styles.signup_imageView}>
                                 <Image source={Logo} style={styles.signup_image_path} />
                             </View>
                         </View>
+                        <FlatList
+                            data={this.state.threads}
+                            horizontal={false}
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={this._renderChatRoom}
+                            style={{marginBottom:20}}
+                        />
                     </Content>
                     <RBSheet
                         ref={ref => {
