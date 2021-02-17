@@ -29,7 +29,10 @@ export default StyleSheet.create({
         fontSize :22,fontFamily: 'WorkSans-Regular',flex:2
     },
     homepage_header:{
-        fontSize :22,fontFamily: 'WorkSans-Regular'
+        flex : 2
+    },
+    homepage_text:{
+        fontSize :22,fontFamily: 'WorkSans-Regular', alignSelf:'center'
     },
     login_userNameDiv: {
         elevation: 10, flex: 1, borderTopLeftRadius: 20, borderTopRightRadius: 20, justifyContent: 'space-between', flexDirection: 'column'
