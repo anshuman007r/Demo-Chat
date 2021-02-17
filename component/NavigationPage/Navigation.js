@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import LoginPage from '../authPage/Login';
 import SignUp from '../authPage/SignUp';
 import HomePage from '../chatPage/HomePage'
+import ChatRoom from '../chatPage/ChatRoom';
 
 export const AppNavigator = createStackNavigator({
         LoginPage: {
@@ -14,6 +15,10 @@ export const AppNavigator = createStackNavigator({
         },
         HomePage: {
             screen: HomePage,
+            navigationOptions: { header: null }
+        },
+        ChatRoom:{
+            screen: ChatRoom,
             navigationOptions: { header: null }
         }
     },{

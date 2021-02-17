@@ -28,6 +28,9 @@ export default StyleSheet.create({
     signup_header:{
         fontSize :22,fontFamily: 'WorkSans-Regular',flex:2
     },
+    chat_header:{
+        fontSize :22,fontFamily: 'WorkSans-Regular',flex:2.4
+    },
     homepage_header:{
         flex : 2
     },

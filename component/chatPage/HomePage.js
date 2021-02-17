@@ -33,7 +33,7 @@ class HomePage extends Component {
             roomName :'',
             disableCTA :true
         })
-        firestore().collection('USE_FIRESTORE').add({
+        firestore().collection('MESSAGE_THREADS').add({
             name: roomName,
             latestMessage: {
               text: `${roomName} created. Welcome!`,
@@ -79,19 +79,25 @@ class HomePage extends Component {
         .orderBy('latestMessage.createdAt', 'desc')
         .onSnapshot(querySnapshot => {
             console.log(querySnapshot)
-          const threads = querySnapshot.docs.map(documentSnapshot => {
-            return {
-              _id: documentSnapshot.id,
-              name: '',
-              latestMessage: { text: '' },
-              ...documentSnapshot.data()
-            }
-          })
-          this.setState({
-              threads
-          })
+         if(querySnapshot != null){
+            const threads = querySnapshot.docs.map(documentSnapshot => {
+                return {
+                  _id: documentSnapshot.id,
+                  name: '',
+                  latestMessage: { text: '' },
+                  ...documentSnapshot.data()
+                }
+              })
+              this.setState({
+                  threads
+              })
+         }
         })
         console.log('room',getRooms)
+    }
+
+    navigateToChat = (item) => {
+        this.props.navigation.navigate('ChatRoom',{ chatData : item })
     }
 
     _renderChatRoom = (rowItem) => {
@@ -100,7 +106,7 @@ class HomePage extends Component {
         let time = moment(item.latestMessage.createdAt).format('hh:mm:ss')
         console.log(item)
         return (
-            <TouchableOpacity style={{backgroundColor:'#d4d4d4', height :100, width :'90%', alignSelf:'center',borderColor:'grey',borderWidth:1,borderRadius:10,paddingHorizontal :20, marginTop:10}} >
+            <TouchableOpacity  onPress={()=>this.navigateToChat(item)} style={{backgroundColor:'#d4d4d4', height :100, width :'90%', alignSelf:'center',borderColor:'grey',borderWidth:1,borderRadius:10,paddingHorizontal :20, marginTop:10}} key={index}>
                 <Text style={{ color: '#000', fontFamily: 'WorkSans-SemiBold',fontSize: 22, alignSelf: 'flex-start', marginTop: 10 }} numberOfLines ={1} ellipsizeMode={'tail'}>{item.name}</Text>
                 <View style={{flexDirection:'row',marginTop:3}}>
                     <Text style={{ alignSelf:'flex-start', color:'grey', fontSize:14,flex :1.2}} numberOfLines={2}>{item.latestMessage.text}</Text>
