@@ -113,9 +113,7 @@ class ChatRoom extends Component {
         return (
           <Actions
             {...props}
-            options={{
-              ['Send Image']:this.handleMessage,
-            }}
+            onPressActionButton={this.handleMessage}
             icon={() => (
               <Icon name='add' size={28} color={'#c3c3c3'} />
             )}
