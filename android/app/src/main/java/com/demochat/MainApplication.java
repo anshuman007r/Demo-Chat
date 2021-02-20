@@ -3,6 +3,7 @@ package com.demochat;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import com.imagepicker.ImagePickerPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeFirebaseStoragePackage(),
             new ImagePickerPackage(),
             new ReactNativeFirebaseFirestorePackage(),
             new AsyncStoragePackage(),

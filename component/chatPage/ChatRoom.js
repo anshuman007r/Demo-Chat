@@ -10,12 +10,16 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import moment from 'moment'
 import base64 from 'base-64'
 import RBSheet from 'react-native-raw-bottom-sheet'
+import storage from '@react-native-firebase/storage'
+
 class ChatRoom extends Component {
     constructor(props){
         super(props)
         let navigation = this.props.navigation.state.params
         this.state={
             messages :[],
+            messageData :[],
+            imageMessage : [],
             chatData :navigation.chatData,
             profile:props.profile,
             image:{}
@@ -29,23 +33,69 @@ class ChatRoom extends Component {
     }
 
     componentDidMount(){
-        let {chatData} =this.state
         this.fetchMessage()
-        // let messages =[]
-        //     let object ={}
-        //     if(chatData.latestMessage._id){
-        //         object._id = chatData.latestMessage._id
-        //     }else{
-        //         object._id = 1
-        //     }
-        //     object.text=chatData.latestMessage.text
-        //     object.createdAt = chatData.latestMessage.createdAt
-        //     messages.push(object)
-        // this.setState({
-        //     messages,
-        //   })
+        this.fetchImageData()
     }
 
+    uploadImageFile = (path, imageName) =>{
+        let reference = storage().ref(imageName)
+        let upload = reference.putFile(path)
+        upload.then((res)=>{
+            console.log('Image is uploaded successfully !!', res)
+            this.imageToGiftChatFormat()
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }
+
+    fetchImageData= async () =>{
+        let {chatData} = this.state
+        const unsubscribeListener = await firestore()
+        .collection('USE_FIRESTORE')
+        .doc(chatData._id)
+        .collection('IMAGES')
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(querySnapshot => {
+        const messageData = querySnapshot.docs.map(doc => {
+            const firebaseData = doc.data()
+            const data = {
+            _id: doc.id,
+            createdAt: moment().valueOf(),
+            ...firebaseData,
+            }
+
+            if (!firebaseData.system) {
+            data.user = {
+                ...firebaseData.user,
+                name: firebaseData.user.displayName
+            }
+            }
+
+            return data
+        })
+        this.setState({messageData},()=>this.processImage())
+        })
+    }
+
+    processImage =() =>{
+        let { messageData } = this.state
+        messageData.map((item)=>{
+            this.fetchImage(item)
+        })
+    }
+
+     fetchImage = async (item) => {
+         let imageMessage = this.state.imageMessage
+        let imageRef = await storage().ref('/'+item.image)
+        .getDownloadURL().then((res)=>{
+                console.log(res)
+                let value ={ ...item, image:res}
+                imageMessage.push(value)
+                this.setState(imageMessage)
+            }).catch((error)=>{
+                return ''
+            })
+    }
 
     fetchMessage = async () =>{
         let {chatData} = this.state
@@ -57,11 +107,10 @@ class ChatRoom extends Component {
         .onSnapshot(querySnapshot => {
         const messages = querySnapshot.docs.map(doc => {
             const firebaseData = doc.data()
-
             const data = {
             _id: doc.id,
             text: '',
-            createdAt: new Date().getTime(),
+            createdAt: moment().valueOf(),
             ...firebaseData
             }
 
@@ -83,17 +132,22 @@ class ChatRoom extends Component {
             messages
         })
         })
+
     }
 
-    onSend =(messages = []) => {
-        // this.sendToFirebase(messages)
-        console.log(messages)
+    onSend =(messages = [], type ='') => {
+
+        if(type == 'image'){
+            this.sendImageToFirebase(messages)
+        }else{
+            this.sendTextToFirebase(messages)            
+        }
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, messages),
         }))
       }
 
-    sendToFirebase = async (messages) =>{
+    sendTextToFirebase = async (messages) =>{
         console.log(messages)
         let { chatData } = this.state
         let message = await firestore()
@@ -105,6 +159,24 @@ class ChatRoom extends Component {
           createdAt: moment().valueOf(),
           user: {
             _id: messages[0].user._id,
+            displayName: this.state.profile.email
+          }
+        })
+        console.log(message)
+    }
+
+    sendImageToFirebase = async (messages ='') =>{
+        console.log(messages)
+        let { chatData, image } = this.state
+        let message = await firestore()
+        .collection('USE_FIRESTORE')
+        .doc(chatData._id)
+        .collection('IMAGES')
+        .add({
+          image:image.fileName,
+          createdAt: moment().valueOf(),
+          user: {
+            _id: this.state.profile.uid,
             displayName: this.state.profile.email
           }
         })
@@ -135,7 +207,7 @@ class ChatRoom extends Component {
             if(response && response.fileSize < 20971520 ){
                 this.setState({
                     image : response
-                },()=>this.imageToGiftChatFormat())
+                },()=>this.uploadImageFile(response.uri, response.fileName))
             }else{
                 Alert.alert('','Image size should be less than 20MB')
             }
@@ -149,18 +221,19 @@ class ChatRoom extends Component {
         message.user={
             _id : this.state.profile.uid
         }
-        message._id = JSON.stringify(new Date().getTime())
-        message.createdAt=new Date()
-        this.onSend(message)   
+        message._id = JSON.stringify(moment().valueOf())
+        message.createdAt=moment().valueOf()
+        this.sendImageToFirebase(message)  
     }
 
     takePhotoFromGallery = () =>{
         launchImageLibrary(options, (response) => {
             this.RBSheet.close();
+            console.log(response)
             if(response && response.fileSize < 20971520 ){
                 this.setState({
                     image : response
-                },()=>this.imageToGiftChatFormat())
+                },()=>this.uploadImageFile(response.uri, response.fileName))
             }else{
                 Alert.alert('','Image size should be less than 20MB')
             }
@@ -168,7 +241,10 @@ class ChatRoom extends Component {
     }
 
     render() {
-        console.log(this.state.chatData)
+        console.log(this.state.messages, this.state.imageMessage)
+        let messages = this.state.messages
+        messages = messages.concat(this.state.imageMessage)
+        messages = messages.sort((valueA, valueB)=> valueB.createdAt - valueA.createdAt)
         return (
             <View style={{flex : 1}}>
                 <View style ={{backgroundColor :'#c3c3c3', height :50,flexDirection :'row',alignItems:'center'}}>
@@ -181,7 +257,7 @@ class ChatRoom extends Component {
                             backgroundColor: '#e3e3e3',
                         },
                     }}
-                    messages={this.state.messages}
+                    messages={messages}
                     placeholder='Type a message...'
                     onSend={(messages) => this.onSend(messages)} 
                     // renderSend= {() => this.renderSend()}

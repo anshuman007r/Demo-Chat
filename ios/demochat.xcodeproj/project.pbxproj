@@ -50,6 +50,7 @@
 		622FDE58D80348FCA20D7AD7 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AED2473B4434BE891F5B326 /* libRNCAsyncStorage.a */; };
 		5E46F2DEC71E4010B277927A /* libRNFBFirestore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A5357769F54159AF294169 /* libRNFBFirestore.a */; };
 		ED9D59A9B7D1495E98C327AF /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C89C7F40D46447A9898D538 /* libRNImagePicker.a */; };
+		0112FC99B0FC4A839CE078DC /* libRNFBStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7FC40D1E221421C946D592A /* libRNFBStorage.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -375,6 +376,8 @@
 		08A5357769F54159AF294169 /* libRNFBFirestore.a */ = {isa = PBXFileReference; name = "libRNFBFirestore.a"; path = "libRNFBFirestore.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D31623F83978475F89627817 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		2C89C7F40D46447A9898D538 /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		ECF5670ACBBF4E738C5BFCFC /* RNFBStorage.xcodeproj */ = {isa = PBXFileReference; name = "RNFBStorage.xcodeproj"; path = "../node_modules/@react-native-firebase/storage/ios/RNFBStorage.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B7FC40D1E221421C946D592A /* libRNFBStorage.a */ = {isa = PBXFileReference; name = "libRNFBStorage.a"; path = "libRNFBStorage.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -411,6 +414,7 @@
 				622FDE58D80348FCA20D7AD7 /* libRNCAsyncStorage.a in Frameworks */,
 				5E46F2DEC71E4010B277927A /* libRNFBFirestore.a in Frameworks */,
 				ED9D59A9B7D1495E98C327AF /* libRNImagePicker.a in Frameworks */,
+				0112FC99B0FC4A839CE078DC /* libRNFBStorage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +614,7 @@
 				7C4A2616CA1F4EE6B2FDDB98 /* RNCAsyncStorage.xcodeproj */,
 				FA7999146E494DBAB70E4FD3 /* RNFBFirestore.xcodeproj */,
 				D31623F83978475F89627817 /* RNImagePicker.xcodeproj */,
+				ECF5670ACBBF4E738C5BFCFC /* RNFBStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1247,6 +1252,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1258,6 +1264,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Debug;
@@ -1289,6 +1296,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1300,6 +1308,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Release;
@@ -1330,6 +1339,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Debug;
@@ -1359,6 +1369,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Release;
@@ -1398,6 +1409,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1409,6 +1421,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Debug;
@@ -1448,6 +1461,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1459,6 +1473,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Release;
@@ -1497,6 +1512,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1508,6 +1524,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Debug;
@@ -1546,6 +1563,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1557,6 +1575,7 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\@react-native-firebase\firestore\ios\RNFBFirestore",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\@react-native-firebase\storage\ios\RNFBStorage",
 				);
 			};
 			name = Release;
