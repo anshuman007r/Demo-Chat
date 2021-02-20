@@ -6,6 +6,7 @@ import { widthPercentageToDP, heightPercentageToDP } from '../../consts'
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore'
 import moment from 'moment'
+import base64 from 'base-64'
 class ChatRoom extends Component {
     constructor(props){
         super(props)
@@ -69,6 +70,11 @@ class ChatRoom extends Component {
 
             return data
         })
+        if(messages && messages.length >0){
+            messages.map((item)=>{
+                item.text = base64.decode(item.text)
+            })
+        }
         this.setState({
             messages
         })
@@ -90,7 +96,7 @@ class ChatRoom extends Component {
         .doc(chatData._id)
         .collection('MESSAGES')
         .add({
-          text:messages[0].text,
+          text:base64.encode(messages[0].text),
           createdAt: moment().valueOf(),
           user: {
             _id: messages[0].user._id,

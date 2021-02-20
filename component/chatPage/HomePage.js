@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Content, Icon } from 'native-base';
 import { View, Text, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, TextInput, Alert, Platform, Linking, FlatList } from 'react-native';
-import Logo from '../../assets/images/Image/PNG/demo.png'
+import Logo from '../../assets/images/demo.png'
 import styles from '../../style';
 import { connect } from 'react-redux'
 import { loggedOut } from '../../storage/action'
@@ -9,6 +9,7 @@ import firestore from '@react-native-firebase/firestore'
 import logout from '../../assets/Icon/Logout.png'
 import  RBSheet from 'react-native-raw-bottom-sheet'
 import moment from 'moment'
+import base64 from 'base-64'
 
 
 class HomePage extends Component {
@@ -33,10 +34,10 @@ class HomePage extends Component {
             roomName :'',
             disableCTA :true
         })
-        firestore().collection('MESSAGE_THREADS').add({
-            name: roomName,
+        firestore().collection('USE_FIRESTORE').add({
+            name: base64.encode(roomName),
             latestMessage: {
-              text: `${roomName} created. Welcome!`,
+              text: base64.encode(`${roomName} created. Welcome!`),
               createdAt: new Date().getTime()
             }
           })
@@ -88,6 +89,14 @@ class HomePage extends Component {
                   ...documentSnapshot.data()
                 }
               })
+              if(threads && threads.length > 0){
+                  threads.map((item)=>{
+                      item.name = base64.decode(item.name)
+                      if(item.latestMessage && item.latestMessage.text){
+                          item.latestMessage.text = base64.decode(item.latestMessage.text)
+                      }
+                  })
+              }
               this.setState({
                   threads
               })

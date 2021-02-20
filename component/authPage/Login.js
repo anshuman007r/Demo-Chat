@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Content } from 'native-base';
 import { View, Text, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, TextInput, Alert, Platform, Linking } from 'react-native';
-import Logo from '../../assets/images/Image/PNG/demo.png'
+import Logo from '../../assets/images/demo.png'
 import { RegEx } from '../../config/AppConfig';
 import styles from '../../style';
 import EyeIcon from '../../assets/Icon/Eye.svg'
