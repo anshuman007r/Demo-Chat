@@ -4,7 +4,6 @@ import { View, Text, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, 
 import Logo from '../../assets/images/demo.png'
 import { RegEx } from '../../config/AppConfig';
 import styles from '../../style';
-import EyeIcon from '../../assets/Icon/Eye.svg'
 import auth from '@react-native-firebase/auth'
 import { connect } from 'react-redux'
 import { logged } from '../../storage/action'
@@ -209,6 +208,7 @@ class LoginPage extends Component {
                                                     onChangeText={mobileoremail =>
                                                         this.targetEmailText(mobileoremail.toLowerCase())
                                                     }
+                                                    onSubmitEditing={()=> this.password.focus()}
                                                     style={[styles.userName_inbox,
                                                     {
                                                         borderColor: this.state.isFocusOnTextbox
@@ -236,6 +236,7 @@ class LoginPage extends Component {
                                                 <Text style={styles.password_text}>Password</Text>
                                                 <View style={styles.password_input}>
                                                     <TextInput maxLength={20}
+                                                        ref={(input)=>this.password = input}
                                                         style={[styles.password_inText, { borderColor: this.state.isFocusOnPass ? '#800000' : '#4d5054' }]}
                                                         secureTextEntry={this.state.toggleShowPass} placeholder="Password"
                                                         placeholderTextColor="grey"
