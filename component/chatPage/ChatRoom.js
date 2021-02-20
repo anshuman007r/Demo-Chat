@@ -56,6 +56,7 @@ class ChatRoom extends Component {
         .collection('IMAGES')
         .orderBy('createdAt', 'desc')
         .onSnapshot(querySnapshot => {
+        this.setState({imageMessage : []})
         const messageData = querySnapshot.docs.map(doc => {
             const firebaseData = doc.data()
             const data = {
