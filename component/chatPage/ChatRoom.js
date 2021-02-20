@@ -86,7 +86,8 @@ class ChatRoom extends Component {
     }
 
     onSend =(messages = []) => {
-        this.sendToFirebase(messages)
+        // this.sendToFirebase(messages)
+        console.log(messages)
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, messages),
         }))
@@ -134,11 +135,23 @@ class ChatRoom extends Component {
             if(response && response.fileSize < 20971520 ){
                 this.setState({
                     image : response
-                })
+                },()=>this.imageToGiftChatFormat())
             }else{
                 Alert.alert('','Image size should be less than 20MB')
             }
         });
+    }
+
+    imageToGiftChatFormat = () =>{
+        let { image } = this.state
+        let message = {}
+        message.image= image.uri,
+        message.user={
+            _id : this.state.profile.uid
+        }
+        message._id = JSON.stringify(new Date().getTime())
+        message.createdAt=new Date()
+        this.onSend(message)   
     }
 
     takePhotoFromGallery = () =>{
@@ -147,7 +160,7 @@ class ChatRoom extends Component {
             if(response && response.fileSize < 20971520 ){
                 this.setState({
                     image : response
-                })
+                },()=>this.imageToGiftChatFormat())
             }else{
                 Alert.alert('','Image size should be less than 20MB')
             }
