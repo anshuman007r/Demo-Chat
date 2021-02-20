@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import {View, Text, TouchableOpacity } from 'react-native'
-import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import {View, Text, TouchableOpacity, Alert} from 'react-native'
+import { Icon, Button } from 'native-base'
+import { GiftedChat, Bubble, Composer, ActionsProps, Actions} from 'react-native-gifted-chat'
 import styles from '../../style';
 import { widthPercentageToDP, heightPercentageToDP } from '../../consts'
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore'
 import moment from 'moment'
 import base64 from 'base-64'
+import RBSheet from 'react-native-raw-bottom-sheet'
 class ChatRoom extends Component {
     constructor(props){
         super(props)
@@ -14,7 +16,8 @@ class ChatRoom extends Component {
         this.state={
             messages :[],
             chatData :navigation.chatData,
-            profile:props.profile
+            profile:props.profile,
+            imagePickerModal : false
         }
     }
 
@@ -106,6 +109,33 @@ class ChatRoom extends Component {
         console.log(message)
     }
 
+    renderActions = (props: Readonly<ActionsProps>) => {
+        return (
+          <Actions
+            {...props}
+            options={{
+              ['Send Image']:this.handleMessage,
+            }}
+            icon={() => (
+              <Icon name='add' size={28} color={'#c3c3c3'} />
+            )}
+            onSend={args => console.log(args)}
+          />
+        )
+      }
+
+    handleMessage =()=>{
+        this.RBSheet.open()
+    }
+
+    takePhotoFromCamera = () => {
+
+    }
+
+    takePhotoFromGallery = () =>{
+
+    }
+
     render() {
         console.log(this.state.chatData)
         return (
@@ -128,6 +158,15 @@ class ChatRoom extends Component {
                     user={{
                         _id: this.state.profile.uid,
                     }}
+                    renderComposer={props=>{
+                        return(
+                            <Composer
+                            { ...props}
+
+                            />
+                        )
+                    }}
+                    renderActions={(props)=>this.renderActions(props)}
                     renderBubble={props => {
                         return (
                             <Bubble
@@ -154,6 +193,67 @@ class ChatRoom extends Component {
                         );
                     }}
                 />
+                <RBSheet
+                    ref={ref => {
+                        this.RBSheet = ref;
+                    }}
+                    // height={heightPercentageToDP(33) + 140}
+                    duration={350}
+                    customStyles={{  
+                        container:{
+                            justifyContent: "center",
+                            alignItems: "center",
+                            borderTopLeftRadius: 20,
+                            borderTopRightRadius: 20
+                        }      
+                    }}
+                >
+                    <View style={{alignItems: "center", width: widthPercentageToDP(100), height: "100%", justifyContent:'space-evenly' }}>
+                        <TouchableOpacity
+                            disabled={this.state.disableCTA}
+                            onPress={this.takePhotoFromCamera}
+                            style={[styles.button_disable,
+                            {
+                                backgroundColor:  "#000",
+                                borderColor : '#c3c3c3',
+                                borderWidth : 2,
+                                height : 60,
+
+                            }]
+                            }
+                        >
+                            <Text style={[styles.continue_text, { color: 'white' }]}>Take photo</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            disabled={this.state.disableCTA}
+                            onPress={this.takePhotoFromGallery}
+                            style={[styles.button_disable,
+                            {
+                                backgroundColor:  "#000",
+                                borderColor : '#c3c3c3',
+                                borderWidth : 2,
+                                height : 60,
+                            }]
+                            }
+                        >
+                            <Text style={[styles.continue_text, { color: 'white' }]}>Choose from gallery</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            disabled={this.state.disableCTA}
+                            onPress={() => this.RBSheet.close()}
+                            style={[styles.button_disable,
+                            {
+                                backgroundColor:  "#000",
+                                borderColor : '#c3c3c3',
+                                borderWidth : 2,
+                                height : 60,
+                            }]
+                            }
+                        >
+                            <Text style={[styles.continue_text, { color: 'white' }]}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </RBSheet>
             </View>
         )
     }
