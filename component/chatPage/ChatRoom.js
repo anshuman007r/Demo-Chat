@@ -6,6 +6,7 @@ import styles from '../../style';
 import { widthPercentageToDP, heightPercentageToDP } from '../../consts'
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import moment from 'moment'
 import base64 from 'base-64'
 import RBSheet from 'react-native-raw-bottom-sheet'
@@ -17,7 +18,6 @@ class ChatRoom extends Component {
             messages :[],
             chatData :navigation.chatData,
             profile:props.profile,
-            imagePickerModal : false
         }
     }
 
@@ -127,11 +127,26 @@ class ChatRoom extends Component {
     }
 
     takePhotoFromCamera = () => {
-
+        launchCamera(options, (response) => {
+            let picker = this.state.upload
+            picker = response;
+            console.log(response)
+            // if (!response.didCancel && !response.error) {
+            // }
+            this.RBSheet.close();
+        });
     }
 
     takePhotoFromGallery = () =>{
-
+        launchImageLibrary(options, (response) => {
+            let picker = this.state.upload
+            picker = response;
+            console.log(response)
+            // if (!response.didCancel && !response.error) {
+            //     console.log("picker data:",response)
+            // }
+            this.RBSheet.close();
+        });
     }
 
     render() {
@@ -264,3 +279,12 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(ChatRoom)
+
+const options = {
+    title: 'Select Avatar',
+    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+    },
+};
