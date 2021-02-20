@@ -18,6 +18,7 @@ class ChatRoom extends Component {
             messages :[],
             chatData :navigation.chatData,
             profile:props.profile,
+            image:{}
         }
     }
 
@@ -128,24 +129,28 @@ class ChatRoom extends Component {
 
     takePhotoFromCamera = () => {
         launchCamera(options, (response) => {
-            let picker = this.state.upload
-            picker = response;
             console.log(response)
-            // if (!response.didCancel && !response.error) {
-            // }
             this.RBSheet.close();
+            if(response && response.fileSize < 20971520 ){
+                this.setState({
+                    image : response
+                })
+            }else{
+                Alert.alert('','Image size should be less than 20MB')
+            }
         });
     }
 
     takePhotoFromGallery = () =>{
         launchImageLibrary(options, (response) => {
-            let picker = this.state.upload
-            picker = response;
-            console.log(response)
-            // if (!response.didCancel && !response.error) {
-            //     console.log("picker data:",response)
-            // }
             this.RBSheet.close();
+            if(response && response.fileSize < 20971520 ){
+                this.setState({
+                    image : response
+                })
+            }else{
+                Alert.alert('','Image size should be less than 20MB')
+            }
         });
     }
 
