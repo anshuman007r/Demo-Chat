@@ -148,7 +148,7 @@ class LoginPage extends Component {
               this.props.navigation.dispatch(onlogOn)
             }
           } catch (e) {
-            Alert.alert(e.message)
+            Alert.alert('',e.message)
           }
     }
 

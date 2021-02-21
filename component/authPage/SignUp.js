@@ -132,7 +132,7 @@ class SignUp extends Component {
               this.props.logged(response.user._user)
             }
           } catch (e) {
-            Alert.alert(e.message)
+            Alert.alert('',e.message)
           }
     }
 
