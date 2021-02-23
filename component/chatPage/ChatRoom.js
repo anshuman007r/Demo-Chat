@@ -20,6 +20,7 @@ class ChatRoom extends Component {
             messages :[],
             messageData :[],
             imageMessage : [],
+            gifMessage :[],
             chatData :navigation.chatData,
             profile:props.profile,
             image:{},
@@ -38,6 +39,7 @@ class ChatRoom extends Component {
     componentDidMount(){
         this.fetchMessage()
         this.fetchImageData()
+        this.fetchGIFData()
     }
 
     uploadImageFile = (path, imageName) =>{
@@ -100,6 +102,41 @@ class ChatRoom extends Component {
                 return ''
             })
     }
+
+    fetchGIFData = async () =>{
+        let {chatData} = this.state
+        const unsubscribeListener = await firestore()
+        .collection('USE_FIRESTORE')
+        .doc(chatData._id)
+        .collection('GIF')
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(querySnapshot => {
+        const gifMessage = querySnapshot.docs.map(doc => {
+            const firebaseData = doc.data()
+            const data = {
+            _id: doc.id,
+            text: '',
+            createdAt: moment().valueOf(),
+            ...firebaseData,
+            image:firebaseData.gif
+            }
+
+            if (!firebaseData.system) {
+            data.user = {
+                ...firebaseData.user,
+                name: firebaseData.user.displayName
+            }
+            }
+
+            return data
+        })
+        this.setState({
+            gifMessage
+        })
+        })
+
+    }
+
 
     fetchMessage = async () =>{
         let {chatData} = this.state
@@ -178,6 +215,24 @@ class ChatRoom extends Component {
         .collection('IMAGES')
         .add({
           image:image.fileName,
+          createdAt: moment().valueOf(),
+          user: {
+            _id: this.state.profile.uid,
+            displayName: this.state.profile.email
+          }
+        })
+        console.log(message)
+    }
+
+    sendGIFToFirebase = async (messages ='') =>{
+        console.log(messages)
+        let { selectedGifURL, chatData } = this.state
+        let message = await firestore()
+        .collection('USE_FIRESTORE')
+        .doc(chatData._id)
+        .collection('GIF')
+        .add({
+          gif:selectedGifURL,
           createdAt: moment().valueOf(),
           user: {
             _id: this.state.profile.uid,
@@ -266,13 +321,20 @@ class ChatRoom extends Component {
         this.setState({
             selectedGifURL : url,
             search :''
-}       ,()=>this.RBSheet.close())
+}       ,()=>this.callGIFFunction())
+    }
+
+    callGIFFunction = () =>{
+        this.RBSheet.close()
+        this.toggleButtonView()
+        this.sendGIFToFirebase()
     }
 
     render() {
-        console.log(this.state.messages, this.state.imageMessage)
+        console.log(this.state.messages, this.state.imageMessage,this.state.gifMessage)
         let messages = this.state.messages
         messages = messages.concat(this.state.imageMessage)
+        messages = messages.concat(this.state.gifMessage)
         messages = messages.sort((valueA, valueB)=> valueB.createdAt - valueA.createdAt)
         return (
             <View style={{flex : 1}}>
@@ -341,7 +403,7 @@ class ChatRoom extends Component {
                             alignItems: "center",
                             borderTopLeftRadius: 20,
                             borderTopRightRadius: 20,
-                            height : this.state.buttonsView? 350 : 260
+                            height : this.state.buttonsView? 300 : 260
                         }      
                     }}
                 >
@@ -390,7 +452,7 @@ class ChatRoom extends Component {
                         }]
                         }
                     >
-                        <Text style={[styles.continue_text, { color: 'white' }]}>Add gif</Text>
+                        <Text style={[styles.continue_text, { color: 'white' }]}>Add GIF</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         disabled={this.state.disableCTA}
