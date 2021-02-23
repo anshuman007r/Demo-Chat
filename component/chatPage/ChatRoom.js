@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {View, Text, TouchableOpacity, Alert} from 'react-native'
-import { Icon, Button } from 'native-base'
+import {View, Text, TouchableOpacity, Alert, TextInput} from 'react-native'
+import { Icon, Button, KeyboardAvoidingView  } from 'native-base'
 import { GiftedChat, Bubble, Composer, ActionsProps, Actions} from 'react-native-gifted-chat'
 import styles from '../../style';
 import { widthPercentageToDP, heightPercentageToDP } from '../../consts'
@@ -11,7 +11,7 @@ import moment from 'moment'
 import base64 from 'base-64'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import storage from '@react-native-firebase/storage'
-
+import Giphy from 'react-native-giphy'
 class ChatRoom extends Component {
     constructor(props){
         super(props)
@@ -22,7 +22,10 @@ class ChatRoom extends Component {
             imageMessage : [],
             chatData :navigation.chatData,
             profile:props.profile,
-            image:{}
+            image:{},
+            buttonsView : true,
+            search :'',
+            selectedGifURL :''
         }
     }
 
@@ -246,6 +249,26 @@ class ChatRoom extends Component {
         });
     }
 
+    toggleButtonView = () =>{
+        let buttonsView = this.state.buttonsView
+        this.setState({
+            buttonsView : !buttonsView
+        })
+    }
+
+    changeSearch = (search) =>{
+        this.setState({
+            search
+        })
+    }
+
+    selectedGif = (url) => {
+        this.setState({
+            selectedGifURL : url,
+            search :''
+}       ,()=>this.RBSheet.close())
+    }
+
     render() {
         console.log(this.state.messages, this.state.imageMessage)
         let messages = this.state.messages
@@ -311,61 +334,110 @@ class ChatRoom extends Component {
                         this.RBSheet = ref;
                     }}
                     // height={heightPercentageToDP(33) + 140}
-                    duration={350}
+                    duration={300}
                     customStyles={{  
                         container:{
                             justifyContent: "center",
                             alignItems: "center",
                             borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20
+                            borderTopRightRadius: 20,
+                            height : this.state.buttonsView? 350 : 260
                         }      
                     }}
                 >
+                {
+                    this.state.buttonsView ? 
                     <View style={{alignItems: "center", width: widthPercentageToDP(100), height: "100%", justifyContent:'space-evenly' }}>
-                        <TouchableOpacity
-                            disabled={this.state.disableCTA}
-                            onPress={this.takePhotoFromCamera}
-                            style={[styles.button_disable,
-                            {
-                                backgroundColor:  "#000",
-                                borderColor : '#c3c3c3',
-                                borderWidth : 2,
-                                height : 60,
 
-                            }]
-                            }
-                        >
-                            <Text style={[styles.continue_text, { color: 'white' }]}>Take photo</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            disabled={this.state.disableCTA}
-                            onPress={this.takePhotoFromGallery}
-                            style={[styles.button_disable,
-                            {
-                                backgroundColor:  "#000",
-                                borderColor : '#c3c3c3',
-                                borderWidth : 2,
-                                height : 60,
-                            }]
-                            }
-                        >
-                            <Text style={[styles.continue_text, { color: 'white' }]}>Choose from gallery</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            disabled={this.state.disableCTA}
-                            onPress={() => this.RBSheet.close()}
-                            style={[styles.button_disable,
-                            {
-                                backgroundColor:  "#000",
-                                borderColor : '#c3c3c3',
-                                borderWidth : 2,
-                                height : 60,
-                            }]
-                            }
-                        >
-                            <Text style={[styles.continue_text, { color: 'white' }]}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity
+                        disabled={this.state.disableCTA}
+                        onPress={this.takePhotoFromCamera}
+                        style={[styles.button_disable,
+                        {
+                            backgroundColor:  "#000",
+                            borderColor : '#c3c3c3',
+                            borderWidth : 2,
+                            height : 60,
+
+                        }]
+                        }
+                    >
+                        <Text style={[styles.continue_text, { color: 'white' }]}>Take photo</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        disabled={this.state.disableCTA}
+                        onPress={this.takePhotoFromGallery}
+                        style={[styles.button_disable,
+                        {
+                            backgroundColor:  "#000",
+                            borderColor : '#c3c3c3',
+                            borderWidth : 2,
+                            height : 60,
+                        }]
+                        }
+                    >
+                        <Text style={[styles.continue_text, { color: 'white' }]}>Choose from gallery</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        disabled={this.state.disableCTA}
+                        onPress={this.toggleButtonView}
+                        style={[styles.button_disable,
+                        {
+                            backgroundColor:  "#000",
+                            borderColor : '#c3c3c3',
+                            borderWidth : 2,
+                            height : 60,
+                        }]
+                        }
+                    >
+                        <Text style={[styles.continue_text, { color: 'white' }]}>Add gif</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        disabled={this.state.disableCTA}
+                        onPress={() => this.RBSheet.close()}
+                        style={[styles.button_disable,
+                        {
+                            backgroundColor:  "#000",
+                            borderColor : '#c3c3c3',
+                            borderWidth : 2,
+                            height : 60,
+                        }]
+                        }
+                    >
+                        <Text style={[styles.continue_text, { color: 'white' }]}>Cancel</Text>
+                    </TouchableOpacity>
+                </View>:
+                <View style={{alignItems: "center", width: widthPercentageToDP(100), height: "100%"}}>
+                        <View style ={{height : 32, marginTop :10, width :'100%'}}>
+                          <Text style={{fontSize :28,textAlign :'right',right :20}} onPress={()=>this.RBSheet.close()}>X</Text>
+                        </View>
+                        <View style={{width:'90%', marginHorizontal :20, marginVertical:10}}>
+                            <Text style={styles.userName_div}>
+                                Search gif
+                             </Text>
+                            <TouchableOpacity style={styles.userNameDiv_section}>
+                                    <TextInput
+                                        selectionColor={"#4d5054"}
+                                        defaultValue={this.state.search}
+                                        maxLength={256}
+                                        placeholder="Search gif"
+                                        autoCapitalize="none"
+                                        placeholderTextColor="grey"
+                                        editable={true}
+                                        onChangeText={search =>
+                                            this.changeSearch(search)
+                                        }
+                                        style={[styles.userName_inbox,
+                                        ]}
+                                    />
+                            </TouchableOpacity>
+                        </View>
+                        <Giphy
+                            inputText={ this.state.search }
+                            handleGifSelect={ (url) => this.selectedGif(url)}
+                        />
+                </View>
+                }
                 </RBSheet>
             </View>
         )
