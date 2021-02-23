@@ -1,13 +1,32 @@
 import React, { Component } from 'react'
-import { View, PermissionsAndroid } from 'react-native'
+import { View, PermissionsAndroid, NativeModules, Alert} from 'react-native'
 import { createAppContainer, NavigationActions } from 'react-navigation';
 import { AppNavigator } from '../demochat/component/NavigationPage/Navigation'
 import { store } from './storage/store'
 import { Provider } from 'react-redux'
- 
+
+const  ClearCacheModule = NativeModules.ClearCacheModule
+
 export default class App extends Component {
  componentDidMount(){
     this.requestCameraPermission()
+    this.checkAndClearCache()
+ }
+
+ checkAndClearCache = () =>{
+    ClearCacheModule.getAppCacheSize((value,unit)=>{
+      if(value && unit){
+        let size = parseFloat(value)
+        if( size > 20.0 && unit === "MB"){
+          ClearCacheModule.clearAppCache(() =>{
+            console.log('Cache is cleared successfully')
+            Alert.alert('','Cache is cleared successfully')
+          })
+        }else{
+          console.log('Cache is less than 20MB',`it is ${value}${unit}`)
+        }
+      }
+    })
  }
 
  requestCameraPermission = async () => {

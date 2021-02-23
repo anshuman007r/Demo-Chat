@@ -1,7 +1,7 @@
 package com.demochat;
 
 import android.app.Application;
-
+import com.demochat.clear.ClearCachePackage;
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 import com.imagepicker.ImagePickerPackage;
@@ -40,7 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeFirebaseAppPackage(),
             new RNGestureHandlerPackage(),
             new RNScreensPackage(),
-            new RNGetRandomValuesPackage()
+            new RNGetRandomValuesPackage(),
+	          new ClearCachePackage()
       );
     }
 
