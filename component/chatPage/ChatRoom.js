@@ -330,6 +330,11 @@ class ChatRoom extends Component {
         this.sendGIFToFirebase()
     }
 
+    onCross = () =>{
+        this.RBSheet.close()
+        this.toggleButtonView()
+    }
+
     render() {
         console.log(this.state.messages, this.state.imageMessage,this.state.gifMessage)
         let messages = this.state.messages
@@ -471,7 +476,7 @@ class ChatRoom extends Component {
                 </View>:
                 <View style={{alignItems: "center", width: widthPercentageToDP(100), height: "100%"}}>
                         <View style ={{height : 32, marginTop :10, width :'100%'}}>
-                          <Text style={{fontSize :28,textAlign :'right',right :20}} onPress={()=>this.RBSheet.close()}>X</Text>
+                          <Text style={{fontSize :28,textAlign :'right',right :20}} onPress={this.onCross}>X</Text>
                         </View>
                         <View style={{width:'90%', marginHorizontal :20, marginVertical:10}}>
                             <Text style={styles.userName_div}>
