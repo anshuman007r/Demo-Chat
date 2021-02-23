@@ -205,12 +205,15 @@ class ChatRoom extends Component {
         launchCamera(options, (response) => {
             console.log(response)
             this.RBSheet.close();
-            if(response && response.fileSize < 20971520 ){
-                this.setState({
-                    image : response
-                },()=>this.uploadImageFile(response.uri, response.fileName))
-            }else{
-                Alert.alert('','Image size should be less than 20MB')
+            if(response){
+
+                if(response.fileSize <= 20971520){
+                    this.setState({
+                        image : response
+                    },()=>this.uploadImageFile(response.uri, response.fileName))
+                }else if(response.fileSize > 20971520){
+                    Alert.alert('','Image size should be less than 20MB')
+                }
             }
         });
     }
@@ -231,12 +234,14 @@ class ChatRoom extends Component {
         launchImageLibrary(options, (response) => {
             this.RBSheet.close();
             console.log(response)
-            if(response && response.fileSize < 20971520 ){
-                this.setState({
-                    image : response
-                },()=>this.uploadImageFile(response.uri, response.fileName))
-            }else{
-                Alert.alert('','Image size should be less than 20MB')
+            if(response){
+                if(response.fileSize <= 20971520){
+                    this.setState({
+                        image : response
+                    },()=>this.uploadImageFile(response.uri, response.fileName))
+                }else if(response.fileSize > 20971520){
+                    Alert.alert('','Image size should be less than 20MB')
+                }
             }
         });
     }

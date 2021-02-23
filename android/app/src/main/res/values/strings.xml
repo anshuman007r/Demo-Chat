@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">demochat</string>
+    <string name="giphy_api_key" translatable="false">6xKX96DOTA4Afm7tLOFX6pBBXNaDB2wm</string>
 </resources>
